@@ -1,0 +1,20 @@
+﻿@model SistemaGp.Models.Producto
+
+
+
+
+<div class="col-lg-4 col-md-6 filter @Model.Categoria.NombreCategoria.Replace(' ', '_')">
+    <!-- Card-->
+    <div class="product-card">
+        <div class="product-image">
+            <img src="@WC.ImagenRuta@Model.ImagenUrl" alt="Imagen del producto" style="background-color: transparent; max-width: 300px; height: auto;">
+        </div>
+        <div class="product-info">
+            <h3 class="product-name">@Model.NombreProducto</h3>
+            <p class="product-description">@Model.DescripcionCorta</p>
+            <p class="product-price">Precio: <span>@Model.Precio</span></p>
+            <a asp-action="Detalle" asp-route-Id="@Model.Id" class="btn btn-primary">Ver Detalle</a>
+        </div>
+    </div>
+</div>
+

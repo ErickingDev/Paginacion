@@ -1,0 +1,173 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using SistemaGp.Utilidades
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Downy Shoes Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+
+    <title>@ViewData["Title"] - SistemaGp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
+    <!--1 pertenece a las otras vistas-->
+  
+
+    <link rel="stylesheet" href="~/css/shop.css" type="text/css" media="screen" property="" />
+	<link href="~/css/style7.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- Owl-carousel-CSS -->
+	<link rel="stylesheet" type="text/css" href="~/css/jquery-ui1.css">
+      
+   
+    
+    <link rel="stylesheet" href="~/css/shop.css" type="text/css" media="screen" property="" />
+	<link href="~/css/style7.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
+
+    <!-- font-awesome-icons -->
+	<link href="~/css/font-awesome.css" rel="stylesheet">
+	<!-- //font-awesome-icons -->
+	<link href="//fonts.googleapis.com/css?family=Montserrat:100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
+		  rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+
+    <!--fin 1 pertenece a las otras vistas-->
+
+
+    <!--2 pertenece a las otras vistas-->
+        <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!--fin 2 pertenece a las otras vistas-->
+
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+
+	
+    
+
+</head>
+<body>
+   <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            
+
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SistemaGp</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                @*para agregar el contenido scafoldin y las pages de los razor*@
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between flex-row-reverse">
+
+                    @*este archico _LoginPartial.cshtml fue creado cuando agregamos las identity.framework
+                    y UI*@
+
+                    <partial name="_LoginPartial" />
+
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (User.IsInRole(SistemaGp.WC.AdminRole))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                        }
+
+                        <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Ver Catalogo</a>
+                            </li
+                        
+                        
+                        @if (User.IsInRole(SistemaGp.WC.AdminRole))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="Index">Producto</a>
+                            </li>
+                        }
+                       
+                        
+
+                        @if (User.IsInRole(SistemaGp.WC.AdminRole))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Administrar Contenido
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link text-dark" asp-area="" asp-controller="Categoria" asp-action="Index">Categoria</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="" asp-controller="TipoAplicacion" asp-action="Index">Tipo Aplicacion</a></li>
+
+                                    <li><a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="Index">Producto</a></li>
+                                    @*habilitar esto solo si es usuario administrador*@
+                                    <li><a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Crear Nuevo Usuario</a></li>
+                                </ul>
+                            </li>
+                        }
+
+                        
+
+                        @*<li>
+                            <!--aqui es para validar el carrito de compras //esto es para el boton carro de compras
+                            si el contador es mayor a 0-->
+                            @if (HttpContextAccessor.HttpContext.Session.Get<List<CarroCompra>>(WC.SessionCarroCompras) != null)
+                            {
+                                <a asp-action="Index" asp-controller="Carro" class="nav-link">
+                                    @{
+                                        var count = HttpContextAccessor.HttpContext.Session.Get<List<CarroCompra>>(WC.SessionCarroCompras).Count();
+
+                                    }
+                                    <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-shopping-cart"></i> &nbsp; (0)
+                                </a>
+
+                            }
+
+                        </li>*@
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+   
+    <div>
+        
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+     
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
